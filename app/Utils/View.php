@@ -6,6 +6,21 @@ class View
 {
 
     /**
+     * Variáveis padrões da View
+     * @var array
+     */
+    private static $vars = [];
+
+    /**
+     * Método responsável por definir os dados iniciais da classe
+     * @param array $vars
+     */
+    public static function init($vars = [])
+    {
+        self::$vars = $vars;
+    }
+
+    /**
      * Responsavel por retonar o conteúdo de uma view
      * @param string
      * @return string
@@ -15,7 +30,7 @@ class View
 
         $file = __DIR__ . '/../../resources/view/' . $name . ".html";
 
-        return file_exists($file) ? file_get_contents($file) : file_get_contents(__DIR__ . '/resources/view/pages/404.html');
+        return file_exists($file) ? file_get_contents($file) : file_get_contents(__DIR__ . '/../../resources/view/pages/404.html');
     }
 
     /**
@@ -28,6 +43,9 @@ class View
     {
 
         $contentView = self::getContentView($view);
+
+        // inclue as variáveis globais da view
+        $vars = array_merge(self::$vars, $vars);
 
         if (!isset($vars['title'])) {
             $vars['title'] = ''; //DEFAULTTITLE;
