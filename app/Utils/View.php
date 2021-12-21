@@ -41,19 +41,10 @@ class View
      */
     public static function render($view, $vars = [])
     {
-
         $contentView = self::getContentView($view);
 
         // inclue as variáveis globais da view
         $vars = array_merge(self::$vars, $vars);
-
-        if (!isset($vars['title'])) {
-            $vars['title'] = ''; //DEFAULTTITLE;
-        }
-
-        $vars['nav'] = self::get('nav', $vars);
-        $vars['top'] = self::get('top', $vars);
-        $vars['bottom'] = self::get('bottom', $vars);
 
         $contentView = self::alter($contentView, $vars);
 

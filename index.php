@@ -12,8 +12,12 @@ function debug($var)
 
 use App\Http\Router;
 use App\Utils\View;
+use App\Utils\Environment;
 
-define('URL', 'http://localhost:8000');
+// carrega variáveis de ambiente
+Environment::load(__DIR__);
+
+define('URL', getenv('URL'));
 
 // inicializa as variaveis globais da View
 View::init([

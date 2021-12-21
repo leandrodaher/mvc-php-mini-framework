@@ -19,6 +19,6 @@ class Home extends Page
             'site'          => $obOrganization->site
         ]);
 
-        return parent::getPage('Teste de Título', $content);
+        return parent::getPage('HOME', $content);
     }
 }

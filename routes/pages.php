@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Middlewares
 
@@ -19,20 +19,33 @@ use \App\Http\Response;
 use \App\Controller\Pages;
 
 $router->get('/', [
-    function(){
+    function () {
         return new Response(200, Pages\Home::getHome());
     }
 ]);
 
 $router->get('/sobre', [
-    function(){
+    function () {
         return new Response(200, Pages\About::getAbout());
+    }
+]);
+
+$router->get('/depoimentos', [
+    function () {
+        return new Response(200, Pages\Testimony::getTestimonies());
+    }
+]);
+
+$router->post('/depoimentos', [
+    function ($request) {
+        debug($request);exit;
+        return new Response(200, Pages\Testimony::getTestimonies());
     }
 ]);
 
 // Ex.: http://localhost:8000/pagina/50/delete
 $router->get('/pagina/{idPagina}/{acao}', [
-    function($idPagina, $acao){
-        return new Response(200, 'Página '.$idPagina.' | Ação '.$acao);
+    function ($idPagina, $acao) {
+        return new Response(200, 'Página ' . $idPagina . ' | Ação ' . $acao);
     }
 ]);

@@ -17,6 +17,6 @@ class About extends Page
             'name'          => $obOrganization->name
         ]);
 
-        return parent::getPage('Teste de Título', $content);
+        return parent::getPage('SOBRE', $content);
     }
 }
