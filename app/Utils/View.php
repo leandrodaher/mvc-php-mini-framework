@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Utils;
+
+class View
+{
+
+    /**
+     * Responsavel por retonar o conteúdo de uma view
+     * @param string
+     * @return string
+     */
+    private static function getContentView($name)
+    {
+
+        $file = __DIR__ . '/../../resources/view/' . $name . ".html";
+
+        return file_exists($file) ? file_get_contents($file) : file_get_contents(__DIR__ . '/resources/view/pages/404.html');
+    }
+
+    /**
+     * Método responsavel por retornar o conteúdo renderizado de uma view
+     * @param  string $view
+     * @param  array $vars
+     * @return string
+     */
+    public static function render($view, $vars = [])
+    {
+
+        $contentView = self::getContentView($view);
+
+        if (!isset($vars['title'])) {
+            $vars['title'] = ''; //DEFAULTTITLE;
+        }
+
+        $vars['nav'] = self::get('nav', $vars);
+        $vars['top'] = self::get('top', $vars);
+        $vars['bottom'] = self::get('bottom', $vars);
+
+        $contentView = self::alter($contentView, $vars);
+
+        return $contentView;
+    }
+
+    public static function get($page, $vars)
+    {
+
+        $contentView = self::getContentView('extends/' . $page, $vars);
+        $contentView = self::alter($contentView, $vars);
+
+        return $contentView;
+    }
+
+    public static function alter($contentView, $vars)
+    {
+
+        $keys = array_keys($vars);
+        $keys = array_map(function ($item) {
+            return "{{" . $item . "}}";
+        }, $keys);
+
+        $contentView = str_replace($keys, array_values($vars), $contentView);
+
+        return $contentView;
+    }
+}
