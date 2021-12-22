@@ -6,6 +6,12 @@ class Request
 {
 
     /**
+     * Instância do Router
+     * @var Router
+     */
+    private $router;
+
+    /**
      * Método HTTP usada para a requisição da pagína
      * @var string
      */
@@ -38,14 +44,36 @@ class Request
     /**
      * Construtor que popula as variaveis
      */
-    public function __construct()
+    public function __construct($router)
     {
+        $this->router       = $router;
+        $this->queryParams  = $_GET ?? [];
+        $this->postVars     = $_POST ?? [];
+        $this->headers      = getallheaders();
+        $this->httpMethod   = $_SERVER['REQUEST_METHOD'] ?? '';
+        $this->setUri();
+    }
 
-        $this->queryParams = $_GET ?? [];
-        $this->postVars = $_POST ?? [];
-        $this->headers = getallheaders();
-        $this->httpMethod = $_SERVER['REQUEST_METHOD'] ?? '';
+    /**
+     * Método responsável por definir a URI
+     */
+    private function setUri()
+    {
+        // URI completa (com gets [?parametro=valor])
         $this->uri = $_SERVER['REQUEST_URI'] ?? '';
+
+        // remove os gets da URI
+        $xURI = explode('?', $this->uri);
+        $this->uri = $xURI[0];
+    }
+
+    /**
+     * Método responsável por retornar a instância de Router
+     * @return Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
     }
 
     /**

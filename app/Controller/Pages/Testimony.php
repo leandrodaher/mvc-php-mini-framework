@@ -5,21 +5,35 @@ namespace App\Controller\Pages;
 use App\Utils\View;
 use App\Controller\Pages\Page;
 use App\Model\Entity\Testimony as EntityTestimony;
+use App\Model\Pagination;
 
 class Testimony extends Page
 {
 
     /**
      * Método responsável por obter a renderização dos intens de depoimentos para a página
+     * @param Request $request
+     * @param Pagination &$pagination - referência de memória
      * @return string
      */
-    private static function getTestimoniesItems()
+    private static function getTestimoniesItems($request, &$pagination)
     {
-        // dpeoimentos
+        // depoimentos
         $items = '';
 
+        // quantidade total de registros
+        $quantidadeTotal = EntityTestimony::getTestimonies(null, null, null, 'COUNT(*) as qtd')
+            ->fetchObject()
+                ->qtd;
+        
+        // pagina atual
+        $queryParams =  $request->getQueryParams();
+        $paginaAtual = $queryParams['page'] ?? 1;
+
+        $pagination = new Pagination($quantidadeTotal, $paginaAtual, 3);
+
         // resultados da página
-        $results = EntityTestimony::getTestimonies(null, 'id DESC');
+        $results = EntityTestimony::getTestimonies(null, 'id DESC', $pagination->getLimit());
 
         // renderiza o item
         while ($testimony = $results->fetchObject(EntityTestimony::class)) {
@@ -34,10 +48,16 @@ class Testimony extends Page
         return $items;
     }
 
-    public static function getTestimonies()
+    /**
+     * Método responsável por retornar o conteúdo (view) de depoimentos
+     * @param Request $request
+     * @return string
+     */
+    public static function getTestimonies($request)
     {
         $content = View::render('pages/testimonies', [
-            'items' => self::getTestimoniesItems()
+            'items'         => self::getTestimoniesItems($request, $pagination), // cria a variavel $pagination com valor nula, a função getTestimoniesItems irá receber como referência de memória pois está declarada com o token '&' na definição da função
+            'pagination'    => parent::getPagination($request, $pagination)
         ]);
 
         return parent::getPage('DEPOIMENTOS', $content);
@@ -59,6 +79,7 @@ class Testimony extends Page
         $testimony->mensagem = $postVars['mensagem'];
         $testimony->cadastrar();
 
-        return self::getTestimonies();
+        // retorna a página de listagem de depoimentos
+        return self::getTestimonies($request);
     }
 }
