@@ -13,16 +13,46 @@
             margin: 0;
         }
 
-        header, footer, div, section {
+        header, footer, section {
             padding: 8px;
         }
 
-        header, footer {
+        header, footer, #menu {
             display: flex;
             flex-direction: row;
             background-color: #ccc;
         }
 
+        /* MENU */
+        .header-nav > ul {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+        }
+
+            .header-nav li {
+                margin-left: 8px;
+            }
+
+            .header-nav a:link, .header-nav a:visited {
+                background-color: #0026ff;
+                color: white;
+                padding: 8px 16px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .header-nav a:hover, .header-nav a:active {
+                background-color: #3698f4;
+            }
+
+            .menu-active{
+                background-color: #3698f4 !important;
+                color: #fff !important;
+            }
+        
+        /* ALERT */
         .alert-danger {
             display: block;
             background-color: #ffb9c7;
@@ -30,6 +60,55 @@
             color: #a70021;
             margin-top: 8px;
         }
+
+        .alert-success {
+            display: block;
+            background-color: #c5ffb9;
+            border: solid 1px #1d5c00;
+            color: #1d5c00;
+            margin-top: 8px;
+        }
+
+        #modulo .container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* PAGINATION */
+        .pagination /*ul*/ {
+            display: block;
+            width: auto;
+        }
+
+            .pagination > ul.pagination-list {
+                display: flex;
+                flex-direction: row;
+                width: auto;
+                border: solid 1px #3698f4;
+                list-style-type: none;
+            }
+
+            .pagination li {
+                margin-left: 8px;
+            }
+
+            .page-link:link, .page-link:visited {
+                background-color: #0026ff;
+                color: white;
+                padding: 8px 8px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+            }
+
+            .page-link:hover, .page-link:active {
+                background-color: #3698f4;
+            }
+
+            .page-link.active {
+                background-color: #ccc;
+                color: #000;
+            }
     </style>
 </head>
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Pages;
+namespace App\Controller\Admin;
 
+use App\Controller\Admin\Page;
 use App\Utils\View;
-use App\Controller\Pages\Page;
 use App\Model\Entity\Testimony as EntityTestimony;
 use App\Model\Pagination;
 
@@ -37,7 +37,7 @@ class Testimony extends Page
 
         // renderiza o item
         while ($testimony = $results->fetchObject(EntityTestimony::class)) {
-            $items .= View::render('pages/testimony/item', [
+            $items .= View::render('admin/modules/testimonies/item', [
                 'id'        => $testimony->id,
                 'nome'      => $testimony->nome,
                 'mensagem'  => $testimony->mensagem,
@@ -49,37 +49,19 @@ class Testimony extends Page
     }
 
     /**
-     * Método responsável por retornar o conteúdo (view) de depoimentos
+     * Método responsável por renderizar a view de listagem de depoimentos
      * @param Request $request
      * @return string
      */
     public static function getTestimonies($request)
     {
-        $content = View::render('pages/testimonies', [
-            'items'         => self::getTestimoniesItems($request, $pagination), // cria a variavel $pagination com valor nula, a função getTestimoniesItems irá receber como referência de memória pois está declarada com o token '&' na definição da função
+        // conteudo da home
+        $content = View::render('admin/modules/testimonies/index', [
+            'items'         => self::getTestimoniesItems($request, $pagination),
             'pagination'    => parent::getPagination($request, $pagination)
         ]);
 
-        return parent::getPage('DEPOIMENTOS', $content);
-    }
-
-    /**
-     * Método responsáveol por cadastrar um depoimento
-     * @param Request $request
-     * @return
-     */
-    public static function insertTestimony($request)
-    {
-        // dados do post
-        $postVars = $request->getPostVars();
-
-        // nova instancia de depoimento
-        $testimony = new EntityTestimony;
-        $testimony->nome = $postVars['nome'];
-        $testimony->mensagem = $postVars['mensagem'];
-        $testimony->cadastrar();
-
-        // retorna a página de listagem de depoimentos
-        return self::getTestimonies($request);
+        // retorna a página completa
+        return parent::getPanel('Depoimentos Admin', $content, 'testimonies');
     }
 }
