@@ -73,10 +73,11 @@ class Response
     {
 
         http_response_code($this->httpCode);
-        foreach ($this->headers as $key => $value) {
+        header('Content-Type: '.$this->contentType);
+        // foreach ($this->headers as $key => $value) {
 
-            header($key . ": " . $value);
-        }
+        //     header($key . ": " . $value);
+        // }
     }
 
     /**
