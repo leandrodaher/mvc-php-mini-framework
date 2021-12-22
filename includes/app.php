@@ -38,8 +38,10 @@ View::init([
 // define o mapeamento de middlewares armazenando o estado na classe de forma estática
 // dentro da classe pode-se chamar este dado usando 'self::$map' onde self é a classe em si (diferente do $this) e $map é a variável que armazena os dados abaixo.
 MiddlewareQueue::setMap([
-    'maintenance' => \App\Http\Middleware\Maintenance::class,
-    'teste' => \App\Http\Middleware\Teste::class
+    'maintenance'           => \App\Http\Middleware\Maintenance::class,
+    'requeredAdminLogout'   => \App\Http\Middleware\RequireAdminLogout::class,
+    'requeredAdminLogin'   => \App\Http\Middleware\RequireAdminLogin::class,
+    'teste'                 => \App\Http\Middleware\Teste::class
 ]);
 
 // define o mapeamento de middlewares padrões (executados em todas as rotas)

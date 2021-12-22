@@ -63,7 +63,7 @@ class Page
 
     }
 
-    static public function getPage($title, $content)
+    public static function getPage($title, $content)
     {
         return View::render('pages/page', [
             'title' => $title,

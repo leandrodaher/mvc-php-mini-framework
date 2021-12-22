@@ -1,6 +1,7 @@
 <?php
-use \App\Http\Response;
-use \App\Controller\Pages;
+
+use App\Http\Response;
+use App\Controller\Pages;
 
 $router->get('/', [
     function () {
