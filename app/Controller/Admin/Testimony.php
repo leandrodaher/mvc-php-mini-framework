@@ -64,4 +64,40 @@ class Testimony extends Page
         // retorna a página completa
         return parent::getPanel('Depoimentos Admin', $content, 'testimonies');
     }
+
+    /**
+     * Método responsável por retornar o formulário de cadastro de um novo depoimento
+     * @param Request $request
+     * @return string
+     */
+    public static function getNewTestimonyForm($request)
+    {
+        // conteudo da home
+        $content = View::render('admin/modules/testimonies/form', [
+            'title' => 'Cadastrar Depoimento'
+        ]);
+
+        // retorna a página completa
+        return parent::getPanel('Cadastrar Depoimento', $content, 'testimonies');
+    }
+
+        /**
+     * Método responsável por cadastrar um novo depoimento no banco
+     * @param Request $request
+     * @return string
+     */
+    public static function setNewTestimony($request)
+    {
+        // dados do post
+        $postVars = $request->getPostVars();
+
+        // nova instancia de depoimento
+        $testimony = new EntityTestimony;
+        $testimony->nome = $postVars['nome'];
+        $testimony->mensagem = $postVars['mensagem'];
+        $testimony->cadastrar();
+
+        // retorna para a página de edição do depoimento
+        $request->getRouter()->redirect('/admin/testimonies/'.$testimony->id.'/edit?status=created');
+    }
 }

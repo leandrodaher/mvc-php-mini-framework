@@ -1,0 +1,21 @@
+<h3>{{title}}</h3>
+<p>Depoimentos enviados pelos usuários</p>
+
+<hr>
+
+<a href="{{URL}}/admin/testimonies">
+    <button type="button">Voltar</button>
+</a>
+
+<hr>
+
+<form method="post">
+<!-- <form method="post" action="?page=1"> -->
+    <label>Nome</label>
+    <input type="text" name="nome" required>
+
+    <label>Mensagem</label>
+    <textarea name="mensagem" rows="5" required></textarea>
+
+    <button type="submit">Enviar</button>
+</form>

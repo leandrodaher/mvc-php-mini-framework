@@ -17,7 +17,7 @@ class Page
         ],
         'testimonies' => [
             'label' => 'Depoimentos',
-            'link'  => URL.'/admin/depoimentos'
+            'link'  => URL.'/admin/testimonies'
         ],
         'users' => [
             'label' => 'Usuários',
