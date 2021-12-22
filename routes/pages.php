@@ -38,8 +38,7 @@ $router->get('/depoimentos', [
 
 $router->post('/depoimentos', [
     function ($request) {
-        debug($request);exit;
-        return new Response(200, Pages\Testimony::getTestimonies());
+        return new Response(200, Pages\Testimony::insertTestimony($request));
     }
 ]);
 
