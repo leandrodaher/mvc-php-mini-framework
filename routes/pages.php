@@ -1,20 +1,4 @@
 <?php
-
-// Middlewares
-
-use \App\Http\Middleware\Queue as MiddlewareQueue;
-
-// define o mapeamento de middlewares armazenando o estado na classe de forma estática
-// dentro da classe pode-se chamar este dado usando 'self::$map' onde self é a classe em si (diferente do $this) e $map é a variável que armazena os dados abaixo.
-MiddlewareQueue::setMap([
-    'maintenance' => \App\Http\Middleware\Maintenance::class
-]);
-
-// define o mapeamento de middlewares padrões executados em todas as rotas
-MiddlewareQueue::setDefault([
-    'maintenance'
-]);
-
 use \App\Http\Response;
 use \App\Controller\Pages;
 
@@ -46,5 +30,19 @@ $router->post('/depoimentos', [
 $router->get('/pagina/{idPagina}/{acao}', [
     function ($idPagina, $acao) {
         return new Response(200, 'Página ' . $idPagina . ' | Ação ' . $acao);
+    }
+]);
+
+
+
+
+// ////////////////////////////// //
+// exemplo de rota com middleware específico para ela
+$router->get('/middleware', [
+    'middlewares' => [
+        'teste'
+    ],
+    function () {
+        return new Response(200, Pages\About::getAbout());
     }
 ]);

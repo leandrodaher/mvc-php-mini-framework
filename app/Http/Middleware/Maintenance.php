@@ -12,7 +12,10 @@ class Maintenance
      */
     public function handle($request, $next)
     {
-        if(getenv('MAINTENANCE') == true) {
+        // converte a variavel ambiente de string para booleano
+        $maintenance = filter_var(getenv('MAINTENANCE'), FILTER_VALIDATE_BOOLEAN);
+
+        if($maintenance == true) {
             throw new \Exception("Página em manutenção. Tente novamente mais tarde.", 200);
         }
 
