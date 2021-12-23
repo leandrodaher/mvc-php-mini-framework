@@ -9,13 +9,15 @@
 
 <hr>
 
+{{status}}
+
 <form method="post">
 <!-- <form method="post" action="?page=1"> -->
     <label>Nome</label>
-    <input type="text" name="nome" required>
+    <input type="text" name="nome" value="{{nome}}" required>
 
     <label>Mensagem</label>
-    <textarea name="mensagem" rows="5" required></textarea>
+    <textarea name="mensagem" rows="5" required>{{mensagem}}</textarea>
 
     <button type="submit">Enviar</button>
 </form>

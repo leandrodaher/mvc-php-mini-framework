@@ -33,12 +33,42 @@ $router->post('/admin/testimonies/new', [
     }
 ]);
 
-// rota de formulário de edição de um novo depoimento
-$router->get('/admin/testimonies/edit', [
+// rota de formulário de edição de um depoimento
+$router->get('/admin/testimonies/{id}/edit', [
     'middlewares' => [
         'requeredAdminLogin'
     ],
-    function ($request) {
-        return new Response(200, Admin\Testimony::getNewTestimonyForm($request));
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::getEditTestimonyForm($request, $id));
+    }
+]);
+
+// rota de edição de um depoimento
+$router->post('/admin/testimonies/{id}/edit', [
+    'middlewares' => [
+        'requeredAdminLogin'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::setEditTestimony($request, $id));
+    }
+]);
+
+// rota de formulário de exclusão de um depoimento
+$router->get('/admin/testimonies/{id}/delete', [
+    'middlewares' => [
+        'requeredAdminLogin'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::getDeleteTestimonyForm($request, $id));
+    }
+]);
+
+// rota de exclusão de um depoimento
+$router->post('/admin/testimonies/{id}/delete', [
+    'middlewares' => [
+        'requeredAdminLogin'
+    ],
+    function ($request, $id) {
+        return new Response(200, Admin\Testimony::setDeleteTestimony($request, $id));
     }
 ]);
