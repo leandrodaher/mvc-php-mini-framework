@@ -1,0 +1,28 @@
+<h3>Usuários</h3>
+<p>Usuários com acesso ao painel</p>
+
+<hr>
+
+<a href="{{URL}}/admin/users/new">
+    <button type="button">Cadastrar usuário</button>
+</a>
+
+<hr>
+
+{{status}}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th style="width:200px;">Nome</th>
+            <th style="width:200px;">Email</th>
+            <th style="width:200px;">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{items}}
+    </tbody>
+</table>
+
+{{pagination}}

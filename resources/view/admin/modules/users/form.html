@@ -1,0 +1,26 @@
+<h3>{{title}}</h3>
+<p>Usuários</p>
+
+<hr>
+
+<a href="{{URL}}/admin/users">
+    <button type="button">Voltar</button>
+</a>
+
+<hr>
+
+{{status}}
+
+<form method="post">
+<!-- <form method="post" action="?page=1"> -->
+    <label>Nome</label>
+    <input type="text" name="nome" value="{{nome}}" required>
+
+    <label>E-mail</label>
+    <input type="email" name="email" value="{{email}}" required>
+
+    <label>Senha</label>
+    <input type="password" name="senha" value="{{senha}}" required>
+
+    <button type="submit">Enviar</button>
+</form>
